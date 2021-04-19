@@ -90,6 +90,10 @@ public class Questao implements Serializable {
         this.estadoQuestao = estadoQuestao;
     }
 
+    public Questao(Integer idQuestao, Object object) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public Integer getIdQuestao() {
         return idQuestao;
     }
