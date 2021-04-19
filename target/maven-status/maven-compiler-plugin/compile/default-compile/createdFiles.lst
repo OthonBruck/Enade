@@ -1,7 +1,6 @@
 com\mycompany\enade\model\TipoUsuario.class
 com\mycompany\enade\resources\ProvaResource.class
 com\mycompany\enade\model\Usuario_.class
-com\mycompany\enade\resources\JavaEE8Resource.class
 com\mycompany\enade\dao\QuestaoDAO.class
 com\mycompany\enade\model\Questao.class
 com\mycompany\enade\resources\TipoUsuarioResource.class
