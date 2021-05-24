@@ -1,4 +1,5 @@
 com\mycompany\enade\model\TipoUsuario.class
+com\mycompany\enade\converter\tipoQuestaoConverter.class
 com\mycompany\enade\resources\ProvaResource.class
 com\mycompany\enade\model\Usuario_.class
 com\mycompany\enade\dao\QuestaoDAO.class
@@ -26,8 +27,10 @@ com\mycompany\enade\JAXRSConfiguration.class
 com\mycompany\enade\model\Prova_.class
 com\mycompany\enade\resources\QuestaoResource.class
 com\mycompany\enade\controller\TipoQuestaoController.class
+com\mycompany\enade\converter\questaoConverter.class
 com\mycompany\enade\controller\TipoUsuarioController.class
 com\mycompany\enade\controller\UsuarioController.class
+com\mycompany\enade\converter\tipoUsuarioConverter.class
 com\mycompany\enade\model\Resultado.class
 com\mycompany\enade\controller\QuestaoController.class
 com\mycompany\enade\model\Questao_.class

@@ -70,7 +70,7 @@ public class Questao implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "estadoQuestao")
-    private short estadoQuestao;
+    private boolean estadoQuestao;
     @ManyToMany(mappedBy = "questaoList")
     private List<Prova> provaList;
     @JoinColumn(name = "TipoQuestao_idTipoQuestao", referencedColumnName = "idTipoQuestao")
@@ -84,7 +84,7 @@ public class Questao implements Serializable {
         this.idQuestao = idQuestao;
     }
 
-    public Questao(Integer idQuestao, String descricaoQuestao, short estadoQuestao) {
+    public Questao(Integer idQuestao, String descricaoQuestao, boolean estadoQuestao) {
         this.idQuestao = idQuestao;
         this.descricaoQuestao = descricaoQuestao;
         this.estadoQuestao = estadoQuestao;
@@ -158,11 +158,11 @@ public class Questao implements Serializable {
         this.questaoCorreta = questaoCorreta;
     }
 
-    public short getEstadoQuestao() {
+    public boolean getEstadoQuestao() {
         return estadoQuestao;
     }
 
-    public void setEstadoQuestao(short estadoQuestao) {
+    public void setEstadoQuestao(boolean estadoQuestao) {
         this.estadoQuestao = estadoQuestao;
     }
 

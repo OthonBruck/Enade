@@ -1,23 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.enade.controller;
 
+import com.google.common.hash.Hashing;
 import com.mycompany.enade.dao.UsuarioDAO;
 import com.mycompany.enade.model.Usuario;
 import java.awt.event.ActionEvent;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
-/**
- *
- * @author Pichau
- */
 @Named
 @ViewScoped
 public class UsuarioController implements Serializable{
@@ -32,6 +25,8 @@ public class UsuarioController implements Serializable{
     }
 
     public void gravar(ActionEvent actionEvent) {
+        String senhaCriptografada = Hashing.sha256().hashString(usuario.getSenha(), StandardCharsets.UTF_8).toString();
+        usuario.setSenha(senhaCriptografada);
         UsuarioDAO.getInstance().merge(usuario);
         usuarios = UsuarioDAO.getInstance().buscarTodos();
         usuario = new Usuario();
