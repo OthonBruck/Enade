@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="5" failures="0" name="com.mycompany.enade.dao.ProvaResourceTest" time="0.328" errors="0" skipped="0">
+<testsuite tests="5" failures="0" name="com.mycompany.enade.dao.ProvaResourceTest" time="0.333" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_251\jre\bin"/>
@@ -65,9 +65,9 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="com.mycompany.enade.dao.ProvaResourceTest" name="testFindAll" time="0.325"/>
+  <testcase classname="com.mycompany.enade.dao.ProvaResourceTest" name="testFindAll" time="0.331"/>
   <testcase classname="com.mycompany.enade.dao.ProvaResourceTest" name="testMerge" time="0.001"/>
-  <testcase classname="com.mycompany.enade.dao.ProvaResourceTest" name="testFind" time="0.001"/>
-  <testcase classname="com.mycompany.enade.dao.ProvaResourceTest" name="testRemove" time="0"/>
-  <testcase classname="com.mycompany.enade.dao.ProvaResourceTest" name="testRemoveAll" time="0.001"/>
+  <testcase classname="com.mycompany.enade.dao.ProvaResourceTest" name="testFind" time="0"/>
+  <testcase classname="com.mycompany.enade.dao.ProvaResourceTest" name="testRemove" time="0.001"/>
+  <testcase classname="com.mycompany.enade.dao.ProvaResourceTest" name="testRemoveAll" time="0"/>
 </testsuite>

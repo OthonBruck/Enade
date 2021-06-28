@@ -61,7 +61,7 @@ public class UsuarioController implements Serializable {
         u.setSenha(EncryptUtil.encrypt(u.getSenha()));
         if (u.getTipoUsuarioidTipoUsuario() == null) {
             TipoUsuario tipoUsuario = new TipoUsuario();
-            tipoUsuario.setIdTipoUsuario(1);
+            tipoUsuario.setIdTipoUsuario(2);
             tipoUsuario.setNomeTipoUsuario("Aluno");
             u.setTipoUsuarioidTipoUsuario(tipoUsuario);
         }
