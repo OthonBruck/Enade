@@ -1,152 +1,185 @@
-<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="./WEB-INF/Template.xhtml"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                    template="./WEB-INF/Template.xhtml"
+                    xmlns:p="http://primefaces.org/ui"
+                    xmlns:h="http://xmlns.jcp.org/jsf/html"
+                    xmlns:f="http://xmlns.jcp.org/jsf/core">
+        <ui:define name="content">
+            <br/>
+            <h2>Questões</h2>
+            <br/>
+            <h:form id="form">
+                <p:growl id="msgs" showDetail="true"/>
+                <p:dataTable var="valor" value="#{questaoController.questoes}"
+                             id="tabela" emptyMessage="Nenhum registro encontrado"
+                             paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             paginator="true" rows="10" rowsPerPageTemplate="5,10,25,50,100,9999" editable="true">
 
-    <ui:define name="content">
+                    <p:ajax event="rowEdit" listener="#{questaoController.onRowEdit}" update=":form:msgs" />
+                    <p:ajax event="rowEditCancel" listener="#{questaoController.onRowCancel}" update=":form:msgs" />
 
-        <br/>
+                    <p:column headerText="Código" sortBy="#{valor.idQuestao}" filterBy="#{valor.idQuestao}">
+                        <h:outputText value="#{valor.idQuestao}" />
+                    </p:column>
 
-        <h2>Questão</h2>
+                    <p:column headerText="Descrição" sortBy="#{valor.descricaoQuestao}" filterBy="#{valor.descricaoQuestao}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{valor.descricaoQuestao}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{valor.descricaoQuestao}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
 
-        <br/>
-        <h:form id="form">
-            <p:dataTable var='valor' value="#{questaoController.questoes}"
-                         id="tabela" emptyMessage="Nenhum registro encontrado"
-                         paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                         paginator="true" rows="10" rowsPerPageTemplate="5,10,25,50,100,9999" style="width:100%">
+                    <p:column headerText="Alternativa A" sortBy="#{valor.alternativaA}" filterBy="#{valor.alternativaA}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{valor.alternativaA}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{valor.alternativaA}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
 
+                    <p:column headerText="Alternativa B" sortBy="#{valor.alternativaB}" filterBy="#{valor.alternativaB}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{valor.alternativaB}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{valor.alternativaB}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
 
-                <p:column headerText="Código" sortBy="#{valor.idQuestao}" filterBy="#{valor.idQuestao}">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{valor.idQuestao}" /></f:facet>
-                        <f:facet name="input"><p:inputText id="modelInput" value="#{valor.idQuestao}" style="width:100%"/></f:facet>
-                    </p:cellEditor>
-                </p:column>
+                    <p:column headerText="Alternativa C" sortBy="#{valor.alternativaC}" filterBy="#{valor.alternativaC}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{valor.alternativaC}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{valor.alternativaC}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
 
-                <p:column headerText="Nome" sortBy="#{valor.descricaoQuestao}" filterBy="#{valor.descricaoQuestao}">
+                    <p:column headerText="Alternativa D" sortBy="#{valor.alternativaD}" filterBy="#{valor.alternativaD}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{valor.alternativaD}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{valor.alternativaD}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
 
-                    <h:outputText value="#{valor.descricaoQuestao}" />
-                </p:column>
+                    <p:column headerText="Alternativa E" sortBy="#{valor.alternativaE}" filterBy="#{valor.alternativaE}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{valor.alternativaE}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{valor.alternativaE}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
 
-                <p:column headerText="Alternativa A" sortBy="#{valor.alternativaA}" filterBy="#{valor.alternativaA}">
+                    <p:column headerText="Alternativa Correta" sortBy="#{valor.questaoCorreta}" filterBy="#{valor.questaoCorreta}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{valor.questaoCorreta}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{valor.questaoCorreta}" maxlength="1" style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
 
-                    <h:outputText value="#{valor.alternativaA}" />
-                </p:column>
+                    <p:column headerText="Tipo Questão" sortBy="#{valor.tipoQuestaoidTipoQuestao.nomeTipoQuestao}" filterBy="#{valor.tipoQuestaoidTipoQuestao.nomeTipoQuestao}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{valor.tipoQuestaoidTipoQuestao.nomeTipoQuestao}" /></f:facet>
+                            <f:facet name="input">
+                                <p:selectOneMenu value="#{valor.tipoQuestaoidTipoQuestao}" converter="tipoquestaoConverter" style="width: 86%">
+                                    <f:selectItems value="#{tipoQuestaoController.tipoQuestoes}" var="respname" itemLabel="#{respname.nomeTipoQuestao}" itemValue="#{respname}" />
+                                </p:selectOneMenu>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
 
-                <p:column headerText="Alternativa B" sortBy="#{valor.alternativaB}" filterBy="#{valor.alternativaB}">
+                    <p:column headerText="Ativa" sortBy="#{valor.estadoQuestao}" filterBy="#{valor.estadoQuestao}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{valor.estadoQuestao ? 'Sim' : 'Não'}" /></f:facet>
+                            <f:facet name="input"><p:selectBooleanCheckbox value="#{valor.estadoQuestao}" style="width:100%; text-align: center;"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
 
-                    <h:outputText value="#{valor.alternativaB}" />
-                </p:column>
+                    <p:column headerText="Opções" exportable="false">
+                        <p:rowEditor id="edit"/>
 
-                <p:column headerText="Alternativa C" sortBy="#{valor.alternativaC}" filterBy="#{valor.alternativaC}">
-                    <h:outputText value="#{valor.alternativaC}" />
-                </p:column>
-
-                <p:column headerText="Alternativa D" sortBy="#{valor.alternativaD}" filterBy="#{valor.alternativaD}">
-                    <h:outputText value="#{valor.alternativaD}" />
-                </p:column>
-
-                <p:column headerText="Alternativa E" sortBy="#{valor.alternativaE}" filterBy="#{valor.alternativaE}">
-                    <h:outputText value="#{valor.alternativaE}" />
-                </p:column>
-
-                <p:column headerText="Alternativa Correta" sortBy="#{valor.questaoCorreta}" filterBy="#{valor.questaoCorreta}">
-                    <h:outputText value="#{valor.questaoCorreta}" />
-                </p:column>
-
-                <p:column headerText="Tipo Questão" sortBy="#{valor.tipoQuestaoidTipoQuestao.nomeTipoQuestao}" filterBy="#{valor.tipoQuestaoidTipoQuestao.nomeTipoQuestao}">
-                    <h:outputText value="#{valor.tipoQuestaoidTipoQuestao.nomeTipoQuestao}" />
-                </p:column>
-
-
-                <p:column headerText="Opções" exportable="false">
-                    <center>
-                        <p:commandButton icon="ui-icon-pencil" value="Editar" onclick="PF('record').show();"> 
+                        <p:commandButton value="Excluir" onclick="PF('remove').show()" >
                             <f:setPropertyActionListener target="#{questaoController.questao}"
                                                          value="#{valor}" />
                         </p:commandButton>
-
-                        <p:commandButton icon="ui-icon-trash" value="Deletar" onclick="PF('remove').show();"> 
-                            <f:setPropertyActionListener target="#{questaoController.questao}"
-                                                         value="#{valor}" />
-                        </p:commandButton> 
-                    </center>
-                </p:column>
-
-            </p:dataTable>
-        </h:form>
-        <br/>
-        <p:commandButton icon="ui-icon-plus" value="Novo" onclick="PF('record').show();"/> 
-        <h:form>
-            <div align="center">
-                <h3>Exportar dados da página</h3>
-                <h:commandLink id="excel">
-                    <p:graphicImage name="images/exports/excel.png" />
-                    <p:dataExporter type="xls" target=":form:tabela" fileName="exports"/>
-                </h:commandLink>
-
-                <h:commandLink id="xlsx">
-                    <p:graphicImage name="images/exports/xlsx.png" width="2%" />
-                    <p:dataExporter type="xlsxstream" target=":form:tabela" fileName="exports" />
-                </h:commandLink>
-                <h:commandLink id="pdf">
-                    <p:graphicImage name="images/exports/pdf.png" />
-                    <p:dataExporter type="pdf" target=":form:tabela" fileName="exports" />
-                </h:commandLink>
-                <h:commandLink>
-                    <p:graphicImage name="images/exports/csv.png" width="24"/>
-                    <p:dataExporter type="csv" target=":form:tabela" fileName="exports" />
-                </h:commandLink>
-
-                <h:commandLink>
-                    <p:graphicImage  name="images/exports/xml.png" width="24"/>
-                    <p:dataExporter type="xml" target=":form:tabela" fileName="exports" />
-                </h:commandLink>
-            </div>
-        </h:form>
-        <p:dialog header="Delete" widgetVar="remove" modal="true"> 
-            <h:form>
-
-                Você tem certeza?
-                <p:commandButton value="Deletar"  
-                                 actionListener="#{questaoController.remover(actionEvent)}" onclick="remove.hide()" alt="Delete" /> 
+                    </p:column>
+                </p:dataTable>
             </h:form>
-        </p:dialog>
 
-        <p:dialog header="Novo" widgetVar="record" modal="true">
+            <br/>
 
             <h:form>
-                <p:panelGrid id="panelRecord" columns="2">
-                    Tipo de Questão:
-                    <p:selectOneMenu id="resp" value="#{questaoController.questao.tipoQuestaoidTipoQuestao}" converter="tipoQuestaoConverter">
-                        <f:selectItem itemLabel="Selecione" itemValue="" />
-                        <f:selectItems value="#{tipoQuestaoController.tipoQuestoes}" var="respname" itemLabel="#{respname.nomeTipoQuestao}" itemValue="#{respname}" />
-                    </p:selectOneMenu>
-                    Descrição:
-                    <p:inputText id="desc" value="#{questaoController.questao.descricaoQuestao}" />
-                    Alternativa A:
-                    <p:inputText id="alta" value="#{questaoController.questao.alternativaA}" />
-                    Alternativa B:
-                    <p:inputText id="altb" value="#{questaoController.questao.alternativaB}" />
-                    Alternativa C:
-                    <p:inputText id="altc" value="#{questaoController.questao.alternativaC}" />
-                    Alternativa D:
-                    <p:inputText id="altd" value="#{questaoController.questao.alternativaD}" />
-                    Alternativa E:
-                    <p:inputText id="alte" value="#{questaoController.questao.alternativaE}" />
-                    Questão Correta:
-                    <p:inputText id="correta" value="#{questaoController.questao.questaoCorreta}" />
-                    Estado:
-                    <p:selectBooleanCheckbox value="#{questaoController.questao.estadoQuestao}" itemLabel="Ativo"/>
-                </p:panelGrid>
-
-                <br/>
-                <p:commandButton value="Salvar"  
-                                 actionListener="#{questaoController.gravar(actionEvent)}" onclick="record.hide()" alt="Record"/> 
+                <p:commandButton icon="ui-icon-plus" value="Novo" onclick="PF('record').show();" />  
             </h:form>
-        </p:dialog>
-    </ui:define>
 
-</ui:composition>
+            <h:form>
+                <div align="center">
+                    <h3>Exportar dados da página</h3>
+
+                    <h:commandLink id="excel">
+                        <p:graphicImage name="imagens/exports/excel.png" />
+                        <p:dataExporter type="xls" target=":form:tabela" fileName="export"/>
+                    </h:commandLink>
+
+                    <h:commandLink id="xlsx">
+                        <p:graphicImage name="imagens/exports/excelN.png" width="2%" />
+                        <p:dataExporter type="xlsxstream" target=":form:tabela" fileName="export"/>
+                    </h:commandLink>
+
+                    <h:commandLink id="pdf">
+                        <p:graphicImage name="imagens/exports/pdf.png" />
+                        <p:dataExporter type="pdf" target=":form:tabela" fileName="export" />
+                    </h:commandLink>
+
+                    <h:commandLink>
+                        <p:graphicImage name="imagens/exports/csv.png" width="24"/>
+                        <p:dataExporter type="csv" target=":form:tabela" fileName="export" />
+                    </h:commandLink>
+
+                    <h:commandLink>
+                        <p:graphicImage  name="imagens/exports/xml.png" width="24"/>
+                        <p:dataExporter type="xml" target=":form:tabela" fileName="export" />
+                    </h:commandLink>
+                </div>
+            </h:form>
+
+            <p:dialog header="Novo" widgetVar="record" modal="true">
+                <h:form>
+                    <p:panelGrid id="panelRecord" columns="2">
+                        Tipo Questão:
+                        <p:selectOneMenu value="#{questaoController.questao.tipoQuestaoidTipoQuestao}" converter="tipoquestaoConverter" style="width: 89%">
+                            <f:selectItem itemLabel="Selecione" itemValue="" />
+                            <f:selectItems value="#{tipoQuestaoController.tipoQuestoes}" var="respname" itemLabel="#{respname.nomeTipoQuestao}" itemValue="#{respname}" />
+                        </p:selectOneMenu>
+                        Descrição:
+                        <p:inputText value="#{questaoController.questao.descricaoQuestao}" />
+                        Alternativa A:
+                        <p:inputText value="#{questaoController.questao.alternativaA}" />
+                        Alternativa B:
+                        <p:inputText value="#{questaoController.questao.alternativaB}" />
+                        Alternativa C:
+                        <p:inputText value="#{questaoController.questao.alternativaC}" />
+                        Alternativa D:
+                        <p:inputText value="#{questaoController.questao.alternativaD}" />
+                        Alternativa E:
+                        <p:inputText value="#{questaoController.questao.alternativaE}" />
+                        Alternativa Correta:
+                        <p:inputText value="#{questaoController.questao.questaoCorreta}" maxlength="1" />
+                        Ativa:
+                        <p:selectBooleanCheckbox value="#{questaoController.questao.estadoQuestao}" itemLabel="Ativo"/>
+                    </p:panelGrid>
+                    <br/>
+                    <p:commandButton value="Salvar"  
+                                     actionListener="#{questaoController.gravar}" onclick="record.hide()" alt="Record"/> 
+                </h:form>
+            </p:dialog>
+
+            <p:dialog header="Delete" widgetVar="remove" modal="true"> 
+                <h:form>
+                    Você tem certeza?
+                    <p:commandButton value="Deletar"  
+                                     actionListener="#{questaoController.remover}" onclick="remove.hide()" alt="Delete" /> 
+                </h:form>
+            </p:dialog>
+        </ui:define>
+    </ui:composition>
+</html>

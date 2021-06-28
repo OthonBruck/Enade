@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.mycompany.enade.model;
 
 import java.io.Serializable;
@@ -20,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Pichau
+ * @author bruno
  */
 @Entity
 @Table(name = "TipoUsuario")
@@ -104,7 +109,7 @@ public class TipoUsuario implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.enade.model.TipoUsuario[ idTipoUsuario=" + idTipoUsuario + " ]";
+        return idTipoUsuario.toString();
     }
     
 }

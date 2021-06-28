@@ -1,6 +1,12 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.mycompany.enade.model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -25,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Pichau
+ * @author bruno
  */
 @Entity
 @Table(name = "Prova")
@@ -83,6 +89,11 @@ public class Prova implements Serializable {
         this.dataProva = dataProva;
     }
 
+    public String getDataFormatada() {
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        return df.format(dataProva);
+    }
+
     @XmlTransient
     public List<Questao> getQuestaoList() {
         return questaoList;
@@ -123,7 +134,7 @@ public class Prova implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.enade.model.Prova[ idProva=" + idProva + " ]";
+        return idProva.toString();
     }
-    
+
 }

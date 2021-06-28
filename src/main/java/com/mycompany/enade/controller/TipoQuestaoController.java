@@ -1,46 +1,57 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.enade.controller;
 
+import com.mycompany.enade.dao.FactoryDAO;
 import com.mycompany.enade.dao.TipoQuestaoDAO;
 import com.mycompany.enade.model.TipoQuestao;
-import java.awt.event.ActionEvent;
+import javax.faces.event.ActionEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.view.ViewScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
-
-/**
- *
- * @author Pichau
- */
+import org.primefaces.event.RowEditEvent;
 
 @Named
-@ViewScoped
-public class TipoQuestaoController implements Serializable{
+@SessionScoped
+public class TipoQuestaoController implements Serializable {
+
+    private final FactoryDAO factoryDAO = new FactoryDAO();
+    private final Class<TipoQuestaoDAO> daoClass;
 
     TipoQuestao tipoQuestao = new TipoQuestao();
     List<TipoQuestao> tipoQuestoes = new ArrayList<>();
 
     public TipoQuestaoController() {
-        tipoQuestoes = TipoQuestaoDAO.getInstance().buscarTodos();
+        daoClass = TipoQuestaoDAO.class;
+        tipoQuestoes = factoryDAO.getInstance(daoClass).findAll();
         tipoQuestao = new TipoQuestao();
     }
 
     public void gravar(ActionEvent actionEvent) {
-        TipoQuestaoDAO.getInstance().merge(tipoQuestao);
-        tipoQuestoes = TipoQuestaoDAO.getInstance().buscarTodos();
+        factoryDAO.getInstance(daoClass).merge(tipoQuestao);
+        tipoQuestoes = factoryDAO.getInstance(daoClass).findAll();
         tipoQuestao = new TipoQuestao();
     }
 
     public void remover(ActionEvent actionEvent) {
-        TipoQuestaoDAO.getInstance().remover(tipoQuestao.getIdTipoQuestao());
-        tipoQuestoes = TipoQuestaoDAO.getInstance().buscarTodos();
+        factoryDAO.getInstance(daoClass).remove(tipoQuestao.getIdTipoQuestao());
+        tipoQuestoes = factoryDAO.getInstance(daoClass).findAll();
         tipoQuestao = new TipoQuestao();
+    }
+
+    public void onRowEdit(RowEditEvent event) {
+        TipoQuestao obj = (TipoQuestao) event.getObject();
+        setTipoQuestao(obj);
+        gravar(null);
+        FacesMessage msg = new FacesMessage("Editado", obj.toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onRowCancel(RowEditEvent<TipoQuestao> event) {
+        FacesMessage msg = new FacesMessage("Cancelado", event.getObject().toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public TipoQuestao getTipoQuestao() {

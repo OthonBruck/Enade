@@ -1,0 +1,12 @@
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./WEB-INF/Template.xhtml"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <center>
+            <div style="display:flex; width:100%; margin-top: 50px">
+                <p:chart type="bar" model="#{graficoController.barModel}" style="width:50%"/>
+                <p:chart type="pie" model="#{graficoController.pieModel}" style="width:50%"/>
+            </div>
+        </center>
+    </ui:define>
+</ui:composition>

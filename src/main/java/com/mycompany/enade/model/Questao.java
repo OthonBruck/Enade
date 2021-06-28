@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.mycompany.enade.model;
 
 import java.io.Serializable;
@@ -14,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -21,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Pichau
+ * @author bruno
  */
 @Entity
 @Table(name = "Questao")
@@ -67,8 +73,6 @@ public class Questao implements Serializable {
     private String alternativaE;
     @Column(name = "questaoCorreta")
     private Character questaoCorreta;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "estadoQuestao")
     private boolean estadoQuestao;
     @ManyToMany(mappedBy = "questaoList")
@@ -76,6 +80,8 @@ public class Questao implements Serializable {
     @JoinColumn(name = "TipoQuestao_idTipoQuestao", referencedColumnName = "idTipoQuestao")
     @ManyToOne(optional = false)
     private TipoQuestao tipoQuestaoidTipoQuestao;
+    @Transient
+    private String resposta;
 
     public Questao() {
     }
@@ -84,14 +90,9 @@ public class Questao implements Serializable {
         this.idQuestao = idQuestao;
     }
 
-    public Questao(Integer idQuestao, String descricaoQuestao, boolean estadoQuestao) {
+    public Questao(Integer idQuestao, String descricaoQuestao) {
         this.idQuestao = idQuestao;
         this.descricaoQuestao = descricaoQuestao;
-        this.estadoQuestao = estadoQuestao;
-    }
-
-    public Questao(Integer idQuestao, Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public Integer getIdQuestao() {
@@ -183,6 +184,14 @@ public class Questao implements Serializable {
         this.tipoQuestaoidTipoQuestao = tipoQuestaoidTipoQuestao;
     }
 
+    public String getResposta() {
+        return resposta;
+    }
+
+    public void setResposta(String resposta) {
+        this.resposta = resposta;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -205,7 +214,7 @@ public class Questao implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.enade.model.Questao[ idQuestao=" + idQuestao + " ]";
+        return descricaoQuestao;
     }
-    
+
 }

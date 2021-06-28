@@ -1,96 +1,106 @@
-<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="./WEB-INF/Template.xhtml"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                    template="./WEB-INF/Template.xhtml"
+                    xmlns:p="http://primefaces.org/ui"
+                    xmlns:h="http://xmlns.jcp.org/jsf/html"
+                    xmlns:f="http://xmlns.jcp.org/jsf/core">
+        <ui:define name="content">
+            <br/>
+            <h2>Tipo Questão</h2>
+            <br/>
+            <h:form id="form">
+                <p:growl id="msgs" showDetail="true"/>
+                <p:dataTable var="valor" value="#{tipoQuestaoController.tipoQuestoes}"
+                             id="tabela" emptyMessage="Nenhum registro encontrado"
+                             paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             paginator="true" rows="10" rowsPerPageTemplate="5,10,25,50,100,9999" editable="true">
 
-    <ui:define name="content">
+                    <p:ajax event="rowEdit" listener="#{tipoQuestaoController.onRowEdit}" update=":form:msgs" />
+                    <p:ajax event="rowEditCancel" listener="#{tipoQuestaoController.onRowCancel}" update=":form:msgs" />
 
-        <br/>
+                    <p:column headerText="Código" sortBy="#{valor.idTipoQuestao}" filterBy="#{valor.idTipoQuestao}">
+                        <h:outputText value="#{valor.idTipoQuestao}" />
+                    </p:column>
 
-        <h2>Tipo Questão</h2>
+                    <p:column headerText="Descrição" sortBy="#{valor.nomeTipoQuestao}" filterBy="#{valor.nomeTipoQuestao}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{valor.nomeTipoQuestao}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{valor.nomeTipoQuestao}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
 
-        <br/>
-        <h:form id="form">
-            <p:dataTable var='valor' value="#{tipoQuestaoController.tipoQuestoes}"
-                         id="tabela" emptyMessage="Nenhum registro encontrado"
-                         paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                         paginator="true" rows="10" rowsPerPageTemplate="5,10,25,50,100,9999" style="width:100%">
+                    <p:column headerText="Opções" exportable="false">
+                        <p:rowEditor id="edit"/>
 
-                <p:column headerText="Código" sortBy="#{valor.idTipoQuestao}" filterBy="#{valor.idTipoQuestao}">
-                    <h:outputText value="#{valor.idTipoQuestao}" />
-                </p:column>
-                <p:column headerText="Nome" sortBy="#{valor.nomeTipoQuestao}" filterBy="#{valor.nomeTipoQuestao}">
-                    <h:outputText value="#{valor.nomeTipoQuestao}" />
-                </p:column>
-
-                <p:column headerText="Opções" exportable="false">
-                    <center>
-                        <p:commandButton icon="ui-icon-pencil" value="Editar" onclick="PF('record').show();"> 
+                        <p:commandButton value="Excluir" onclick="PF('remove').show()" >
                             <f:setPropertyActionListener target="#{tipoQuestaoController.tipoQuestao}"
                                                          value="#{valor}" />
                         </p:commandButton>
-
-                        <p:commandButton icon="ui-icon-trash" value="Deletar" onclick="PF('remove').show();"> 
-                            <f:setPropertyActionListener target="#{tipoQuestaoController.tipoQuestao}"
-                                                         value="#{valor}" />
-                        </p:commandButton> 
-                    </center>
-                </p:column>
-
-            </p:dataTable>
-        </h:form>
-        <br/>
-        <p:commandButton icon="ui-icon-plus" value="Novo" onclick="PF('record').show();"/> 
-        <h:form>
-            <div align="center">
-                <h3>Exportar dados da página</h3>
-                <h:commandLink id="excel">
-                    <p:graphicImage name="images/exports/excel.png" />
-                    <p:dataExporter type="xls" target=":form:tabela" fileName="exports"/>
-                </h:commandLink>
-
-                <h:commandLink id="xlsx">
-                    <p:graphicImage name="images/exports/xlsx.png" width="2%" />
-                    <p:dataExporter type="xlsxstream" target=":form:tabela" fileName="exports" />
-                </h:commandLink>
-                <h:commandLink id="pdf">
-                    <p:graphicImage name="images/exports/pdf.png" />
-                    <p:dataExporter type="pdf" target=":form:tabela" fileName="exports" />
-                </h:commandLink>
-                <h:commandLink>
-                    <p:graphicImage name="images/exports/csv.png" width="24"/>
-                    <p:dataExporter type="csv" target=":form:tabela" fileName="exports" />
-                </h:commandLink>
-
-                <h:commandLink>
-                    <p:graphicImage  name="images/exports/xml.png" width="24"/>
-                    <p:dataExporter type="xml" target=":form:tabela" fileName="exports" />
-                </h:commandLink>
-            </div>
-        </h:form>
-        <p:dialog header="Delete" widgetVar="remove" modal="true"> 
-            <h:form>
-
-                Você tem certeza?
-                <p:commandButton value="Deletar"  
-                                 actionListener="#{tipoQuestaoController.remover(actionEvent)}" onclick="remove.hide()" alt="Delete" /> 
+                    </p:column>
+                </p:dataTable>
             </h:form>
-        </p:dialog>
 
-        <p:dialog header="Novo" widgetVar="record" modal="true">
+            <br/>
 
             <h:form>
-                <p:panelGrid id="panelRecord" columns="2"> 
-                    Nome:
-                    <p:inputText id="nome" value="#{tipoQuestaoController.tipoQuestao.nomeTipoQuestao}" />
-                </p:panelGrid>
-
-                <br/>
-                <p:commandButton value="Salvar"  
-                                 actionListener="#{tipoQuestaoController.gravar(actionEvent)}" onclick="record.hide()" alt="Record"/> 
+                <p:commandButton icon="ui-icon-plus" value="Novo" onclick="PF('record').show();" />  
             </h:form>
-        </p:dialog>
-    </ui:define>
 
-</ui:composition>
+            <h:form>
+                <div align="center">
+                    <h3>Exportar dados da página</h3>
+
+                    <h:commandLink id="excel">
+                        <p:graphicImage name="imagens/exports/excel.png" />
+                        <p:dataExporter type="xls" target=":form:tabela" fileName="export"/>
+                    </h:commandLink>
+
+                    <h:commandLink id="xlsx">
+                        <p:graphicImage name="imagens/exports/excelN.png" width="2%" />
+                        <p:dataExporter type="xlsxstream" target=":form:tabela" fileName="export"/>
+                    </h:commandLink>
+
+                    <h:commandLink id="pdf">
+                        <p:graphicImage name="imagens/exports/pdf.png" />
+                        <p:dataExporter type="pdf" target=":form:tabela" fileName="export" />
+                    </h:commandLink>
+
+                    <h:commandLink>
+                        <p:graphicImage name="imagens/exports/csv.png" width="24"/>
+                        <p:dataExporter type="csv" target=":form:tabela" fileName="export" />
+                    </h:commandLink>
+
+                    <h:commandLink>
+                        <p:graphicImage  name="imagens/exports/xml.png" width="24"/>
+                        <p:dataExporter type="xml" target=":form:tabela" fileName="export" />
+                    </h:commandLink>
+                </div>
+            </h:form>
+
+            <p:dialog header="Novo" widgetVar="record" modal="true">
+                <h:form>
+                    <p:panelGrid id="panelRecord" columns="2"> 
+                        Descrição:
+                        <p:inputText value="#{tipoQuestaoController.tipoQuestao.nomeTipoQuestao}" />
+                    </p:panelGrid>
+                    <br/>
+                    <p:commandButton value="Salvar"  
+                                     actionListener="#{tipoQuestaoController.gravar}" onclick="record.hide()" alt="Record"/> 
+                </h:form>
+            </p:dialog>
+
+            <p:dialog header="Delete" widgetVar="remove" modal="true"> 
+                <h:form>
+                    Você tem certeza?
+                    <p:commandButton value="Deletar"  
+                                     actionListener="#{tipoQuestaoController.remover}" onclick="remove.hide()" alt="Delete" /> 
+                </h:form>
+            </p:dialog>
+        </ui:define>
+    </ui:composition>
+</html>

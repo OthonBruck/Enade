@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.mycompany.enade.model;
 
 import java.io.Serializable;
@@ -17,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Pichau
+ * @author bruno
  */
 @Entity
 @Table(name = "Resultado")
@@ -25,7 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Resultado.findAll", query = "SELECT r FROM Resultado r"),
     @NamedQuery(name = "Resultado.findByIdResultado", query = "SELECT r FROM Resultado r WHERE r.idResultado = :idResultado"),
-    @NamedQuery(name = "Resultado.findByValorObtido", query = "SELECT r FROM Resultado r WHERE r.valorObtido = :valorObtido")})
+    @NamedQuery(name = "Resultado.findByValorObtido", query = "SELECT r FROM Resultado r WHERE r.valorObtido = :valorObtido"),
+    @NamedQuery(name = "Resultado.findByIdUsuario", query = "SELECT r FROM Resultado r WHERE r.usuarioidUsuario.idUsuario = :idUsuario ORDER BY r.provaidProva.dataProva DESC")})
 public class Resultado implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -111,7 +117,7 @@ public class Resultado implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.enade.model.Resultado[ idResultado=" + idResultado + " ]";
+        return idResultado.toString();
     }
-    
+
 }

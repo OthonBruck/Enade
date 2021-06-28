@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.enade.dao;
 
 import com.mycompany.enade.model.Prova;
@@ -30,32 +25,32 @@ public class ProvaResourceTest {
     @Test
     public void testFindAll() {
         provaList.add(prova);
-        Mockito.when(provaResource.TodasProvas()).thenReturn(provaList);
-        assertEquals(provaList, provaResource.TodasProvas());
+        Mockito.when(provaResource.findAll()).thenReturn(provaList);
+        assertEquals(provaList, provaResource.findAll());
     }
 
     @Test
     public void testFind() {
-        Mockito.when(provaResource.GetProva(prova.getIdProva())).thenReturn(prova);
-        assertEquals(prova, provaResource.GetProva(prova.getIdProva()));
+        Mockito.when(provaResource.find(prova.getIdProva())).thenReturn(prova);
+        assertEquals(prova, provaResource.find(prova.getIdProva()));
     }
 
     @Test
     public void testMerge() {
-        Mockito.when(provaResource.Alterar(prova)).thenReturn("");
-        assertEquals("", provaResource.Alterar(prova));
+        Mockito.when(provaResource.merge(prova)).thenReturn("");
+        assertEquals("", provaResource.merge(prova));
     }
 
     @Test
     public void testRemoveAll() {
-        Mockito.when(provaResource.ExcluirTodas()).thenReturn("");
-        assertEquals("", provaResource.ExcluirTodas());
+        Mockito.when(provaResource.removeAll()).thenReturn("");
+        assertEquals("", provaResource.removeAll());
     }
 
     @Test
     public void testRemove() {
-        Mockito.when(provaResource.Excluir(prova.getIdProva())).thenReturn("");
-        assertEquals("", provaResource.Excluir(prova.getIdProva()));
+        Mockito.when(provaResource.remove(prova.getIdProva())).thenReturn("");
+        assertEquals("", provaResource.remove(prova.getIdProva()));
     }
 
 }

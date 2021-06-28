@@ -5,42 +5,49 @@
  */
 package com.mycompany.enade.controller;
 
+import com.mycompany.enade.dao.FactoryDAO;
 import com.mycompany.enade.dao.ResultadoDAO;
 import com.mycompany.enade.model.Resultado;
-import java.awt.event.ActionEvent;
+import com.mycompany.enade.model.Usuario;
+import com.mycompany.enade.util.Constants;
+import javax.faces.event.ActionEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.view.ViewScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Pichau
+ * @author mycompany
  */
-
 @Named
-@ViewScoped
-public class ResultadoController implements Serializable{
+@SessionScoped
+public class ResultadoController implements Serializable {
 
+    private final FactoryDAO factoryDAO = new FactoryDAO();
+    private final Class<ResultadoDAO> daoClass;
+
+    HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
     Resultado resultado = new Resultado();
     List<Resultado> resultados = new ArrayList<>();
 
     public ResultadoController() {
-        resultados = ResultadoDAO.getInstance().buscarTodos();
+        daoClass = ResultadoDAO.class;
+        resultados = factoryDAO.getInstance(daoClass).findResultadosUsuario(getUsuarioLogado().getIdUsuario());
         resultado = new Resultado();
     }
 
     public void gravar(ActionEvent actionEvent) {
-        ResultadoDAO.getInstance().merge(resultado);
-        resultados = ResultadoDAO.getInstance().buscarTodos();
+        factoryDAO.getInstance(daoClass).merge(resultado);
+        resultados = factoryDAO.getInstance(daoClass).findResultadosUsuario(getUsuarioLogado().getIdUsuario());
         resultado = new Resultado();
     }
 
-    public void remover(ActionEvent actionEvent) {
-        ResultadoDAO.getInstance().remover(resultado.getIdResultado());
-        resultados = ResultadoDAO.getInstance().buscarTodos();
-        resultado = new Resultado();
+    private Usuario getUsuarioLogado() {
+        return (Usuario) session.getAttribute(Constants.HTTP_SESSION_ATRIBUTE_LOGADO);
     }
 
     public Resultado getResultado() {

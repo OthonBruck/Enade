@@ -1,29 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.enade.dao;
 
 import com.mycompany.enade.model.Resultado;
+import java.util.List;
 
-/**
- *
- * @author Pichau
- */
 public class ResultadoDAO extends GenericDAO<Resultado, Integer> {
-
-    public static ResultadoDAO resultadoDAO;
 
     public ResultadoDAO() {
         super(Resultado.class);
     }
 
-    public static ResultadoDAO getInstance() {
-        if (resultadoDAO == null) {
-            resultadoDAO = new ResultadoDAO();
-        }
-        return resultadoDAO;
+    public List<Resultado> findResultadosUsuario(Integer idUsuario) {
+        return entityManager.createNamedQuery("Resultado.findByIdUsuario", Resultado.class)
+                .setParameter("idUsuario", idUsuario).getResultList();
+    }
+    
+    public List<Resultado> findUltimosDezResultados() {
+        return entityManager.createQuery("from Resultado r ORDER BY r.idResultado DESC", Resultado.class).setMaxResults(10).getResultList();
     }
 
 }
